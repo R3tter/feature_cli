@@ -1,3 +1,9 @@
-import { sum } from 'utils';
+import inquirer from 'inquirer';
+import chalk from 'chalk';
 
-console.log(sum(2, 3));
+import { questions } from 'constants';
+
+(async () => {
+  const res = await inquirer.prompt(questions);
+  console.log(res);
+})();
