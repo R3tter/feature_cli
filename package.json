@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
-    "build": "rm -rf ./dist && webpack --mode development --config ./webpack.config.js && cp package.json dist/ && cp README.md dist/"
+    "dev": "webpack --mode development --config ./webpack.config.js && node ./dist",
+    "build": "rm -rf ./dist && webpack --mode production --config ./webpack.config.js"
   },
   "author": "R3tter",
   "license": "MIT",
@@ -22,7 +22,9 @@
     "@babel/preset-env": "^7.9.0",
     "@babel/preset-typescript": "^7.9.0",
     "babel-jest": "^25.2.6",
+    "babel-loader": "^8.1.0",
     "babel-plugin-module-resolver": "^4.0.0",
+    "copy-webpack-plugin": "^6.0.2",
     "jest": "^25.2.7",
     "prettier": "^2.0.3",
     "ts-loader": "^6.2.2",
