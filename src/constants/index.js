@@ -55,8 +55,8 @@ export const SomeSagas = [${name.toLowerCase()}Watch];
   actionSaga: (name) => `
 export const set${name}Status = createAction('${name.toLowerCase()}/set/status', (type, status) => ({ type, status }))
 export const set${name}Data = createAction('${name.toLowerCase()}/set/data');
-export const set${name}Error = createAction('${name.toLowerCase()}/set/errors);
-export const start${name} = createAction('${name.toLowerCase()}/start);
+export const set${name}Error = createAction('${name.toLowerCase()}/set/errors');
+export const start${name} = createAction('${name.toLowerCase()}/start');
   `,
   actionThunk: (name) => `
 import { apiRequest } from 'core/apiRequest';
@@ -64,7 +64,7 @@ import { statuses } from 'constants';
 
 export const set${name}Status = createAction('${name.toLowerCase()}/set/status', (type, status) => ({ type, status }))
 export const set${name}Data = createAction('${name.toLowerCase()}/set/data');
-export const set${name}Error = createAction('${name.toLowerCase()}/set/errors); 
+export const set${name}Error = createAction('${name.toLowerCase()}/set/errors'); 
   
 export const someAction = () => async dispatch => {
   await apiRequest({
