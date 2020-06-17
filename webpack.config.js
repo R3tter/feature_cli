@@ -22,7 +22,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'index.js',
-    library: 'library-name',
+    library: 'feature-cli',
     libraryTarget: 'umd'
   },
   optimization: {
