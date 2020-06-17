@@ -46,7 +46,7 @@ function* ${name.toLowerCase()} () {
 }
    
 function* ${name.toLowerCase()}Watch () {
-  yeild takeLatest(star${name}().type, ${name.toLowerCase()});  
+  yield takeLatest(star${name}().type, ${name.toLowerCase()});  
 }
 
 export const SomeSagas = [${name.toLowerCase()}Watch];
