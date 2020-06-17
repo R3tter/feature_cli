@@ -1,6 +1,6 @@
 {
   "name": "feature-cli",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -20,7 +20,7 @@
     ]
   },
   "bin": {
-    "feature-cli": "npm run init"
+    "feature-cli": "index.js"
   },
   "bugs": {
     "url": "https://github.com/R3tter/feature_cli/issues"
