@@ -30,9 +30,15 @@ const createMiddleware = async (name, middleware) => {
 };
 
 const createReducer = async (name) => {
-  const baseUrl = `./${name}`;
-  await execa.command(`mkdir ${baseUrl}/reducers`);
-  await fs.writeFile(`${baseUrl}/reducers/index.js`, filesContent.reducer(name), () => null);
+  const baseUrl = `./${name}/reducers`;
+  await execa.command(`mkdir ${baseUrl}`);
+  await fs.writeFile(`${baseUrl}/index.js`, filesContent.reducer(name), () => null);
+};
+
+const createSelector = async (name) => {
+  const baseUrl = `./${name}/selectors`;
+  await execa.command(`mkdir ${baseUrl}`);
+  await fs.writeFile(`${baseUrl}/index.js`, filesContent.selector(name), () => null);
 };
 
 export const manageFlow = async (res) => {
@@ -40,5 +46,6 @@ export const manageFlow = async (res) => {
   await createFeature(name);
   isActions && (await createActions(name));
   middleware && (await createMiddleware(name, middleware));
-  reducers && await createReducer(name);
+  reducers && (await createReducer(name));
+  selectors && (await createSelector(name));
 };

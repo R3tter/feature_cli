@@ -113,5 +113,13 @@ export const ${name} = handleActions(
   },
   initialState
 )
+  `,
+  selector: (name) => `import { createSelector } from 'reselect';
+  
+const ${name} = state => state.${name};
+  
+export const getStatuses = createSelector(${name}, state => state.statuses);
+export const getData = createSelector(${name}, state => state.data);
+export const getError = createSelector(${name}, state => state.error); 
   `
 };
