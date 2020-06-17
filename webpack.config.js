@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
@@ -29,6 +30,7 @@ module.exports = {
     minimize: true
   },
   plugins: [
+    new webpack.BannerPlugin({ banner: '#!/usr/bin/env node', raw: true }),
     new CopyPlugin({
       patterns: [
         { from: './package.json', to: path.resolve(__dirname, 'dist') },
