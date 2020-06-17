@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack --mode development --config ./webpack.config.js && node ./dist",
-    "build": "rm -rf ./dist && webpack --mode production --config ./webpack.config.js"
+    "dev": "rm -rf ./dist && webpack --mode development --config ./webpack.config.js && cd ./dist && node index",
+    "build": "rm -rf ./dist && webpack --mode production --config ./webpack.config.js",
+    "init": "node index.js"
   },
   "author": "R3tter",
   "license": "MIT",
