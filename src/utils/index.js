@@ -41,6 +41,20 @@ const createSelector = async (name) => {
   await fs.writeFile(`${baseUrl}/index.js`, filesContent.selector(name), () => null);
 };
 
+const createMainComponent = async (name) => {
+  const baseUrl = `./${name}`;
+  await fs.writeFile(`${baseUrl}/index.js`, filesContent.mainJs(name), () => null);
+  await fs.writeFile(`${baseUrl}/style.js`, filesContent.mainStyles, () => null);
+};
+
+const createComponents = async (name) => {
+  const baseUrl = `./${name}`;
+  await execa.command(`mkdir ${baseUrl}/components`);
+  await fs.writeFile(`${baseUrl}/index.js`, filesContent.routeJS(name), () => null);
+  await fs.writeFile(`${baseUrl}/routes.js`, filesContent.routeFile, () => null);
+  await fs.writeFile(`${baseUrl}/style.js`, filesContent.mainStyles, () => null);
+};
+
 export const manageFlow = async (res) => {
   const { name, isActions, middleware, selectors, reducers, components } = res;
   await createFeature(name);
@@ -48,4 +62,5 @@ export const manageFlow = async (res) => {
   middleware && (await createMiddleware(name, middleware));
   reducers && (await createReducer(name));
   selectors && (await createSelector(name));
+  components ? await createComponents(name) : await createMainComponent(name);
 };

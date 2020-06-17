@@ -121,5 +121,61 @@ const ${name} = state => state.${name};
 export const getStatuses = createSelector(${name}, state => state.statuses);
 export const getData = createSelector(${name}, state => state.data);
 export const getError = createSelector(${name}, state => state.error); 
+  `,
+  mainJs: (name) => `import React, { memo } from 'react';
+import PropsTypes from 'prop-types';
+import { css } from 'aphrodite/no-important';
+import * as styles from './style';
+
+export const ${name} = memo(() => <div className={css(styles.regular.root)}>some content</div>)
+  `,
+  mainStyles: `import { StyleSheet } from 'aphrodite/no-important';
+  
+export const regular = StyleSheet.create({
+  root: {
+    display: 'flex'
+  }
+})  
+  `,
+  routeJS: (name) => `import React, { memo } from 'react';
+import { Switch, Redirect } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { css } from 'aphrodite/no-important';
+
+import { routes } from '${name}/routes';
+import { routesMapper } from 'core/helpers';
+import { getIsAuth } from 'App/selectors';
+
+import * as styles from './style';  
+
+export const ${name} = memo(() => {
+  const isAuth = useSelector(getIsAuth);
+
+  return (
+    <div className={css(styles.regular.root)}>
+      <Switch>
+        {routesMapper(routes, isAuth)}
+        <Redirect to="/some" />
+      </Switch>
+    </div>
+  );
+})
+  `,
+  routeFile: `
+export const routes = [
+  {
+    path: '/some',
+    component: () => null,
+    exact: false,
+    pageCategory: 'private'
+  },
+  {
+    path: '/other',
+    component: () => null,
+    exact: false,
+    pageCategory: 'private'
+  }
+];
+  
   `
 };
