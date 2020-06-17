@@ -29,9 +29,16 @@ const createMiddleware = async (name, middleware) => {
   }
 };
 
+const createReducer = async (name) => {
+  const baseUrl = `./${name}`;
+  await execa.command(`mkdir ${baseUrl}/reducers`);
+  await fs.writeFile(`${baseUrl}/reducers/index.js`, filesContent.reducer(name), () => null);
+};
+
 export const manageFlow = async (res) => {
   const { name, isActions, middleware, selectors, reducers, components } = res;
   await createFeature(name);
   isActions && (await createActions(name));
   middleware && (await createMiddleware(name, middleware));
+  reducers && await createReducer(name);
 };

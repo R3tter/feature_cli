@@ -46,14 +46,14 @@ function* ${name.toLowerCase()} () {
 }
    
 function* ${name.toLowerCase()}Watch () {
-  yeild takeLatest(star${name}().type, ${name.toLowerCase()})  
+  yeild takeLatest(star${name}().type, ${name.toLowerCase()});  
 }
 
 export const SomeSagas = [${name.toLowerCase()}Watch];
 
   `,
   actionSaga: (name) => `
-export const set${name}Status = createAction('${name.toLowerCase()}/set/status')
+export const set${name}Status = createAction('${name.toLowerCase()}/set/status', (type, status) => ({ type, status }))
 export const set${name}Data = createAction('${name.toLowerCase()}/set/data');
 export const set${name}Error = createAction('${name.toLowerCase()}/set/errors);
 export const start${name} = createAction('${name.toLowerCase()}/start);
@@ -62,7 +62,7 @@ export const start${name} = createAction('${name.toLowerCase()}/start);
 import { apiRequest } from 'core/apiRequest';
 import { statuses } from 'constants'; 
 
-export const set${name}Status = createAction('${name.toLowerCase()}/set/status')
+export const set${name}Status = createAction('${name.toLowerCase()}/set/status', (type, status) => ({ type, status }))
 export const set${name}Data = createAction('${name.toLowerCase()}/set/data');
 export const set${name}Error = createAction('${name.toLowerCase()}/set/errors); 
   
@@ -81,5 +81,37 @@ export const someAction = () => async dispatch => {
       }
     }); 
 }  
+  `,
+  reducer: (name) => `import { handleActions } from 'redux-actions';
+import { statuses } from 'constants';
+import { set${name}Status, set${name}Data, set${name}Error } from '${name}/actions';
+
+const initialState = {
+  statuses: {
+    get: statuses.none
+  },
+  data: null
+}
+
+export const ${name} = handleActions(
+  {
+   [set${name}Status]: (state, { payload }) => ({
+     ...state,
+     statuses: {
+      ...state.statuses,
+      [payload.type]: payload.status
+     }
+   }),
+   [set${name}Data]: (state, { payload }) => ({
+     ...state,
+     data: payload
+   }),
+   [set${name}Error]: (state, { payload }) => ({
+     ...state,
+     error: payload
+   })
+  },
+  initialState
+)
   `
 };
