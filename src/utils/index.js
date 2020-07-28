@@ -43,14 +43,14 @@ const createSelector = async (name) => {
 
 const createMainComponent = async (name) => {
   const baseUrl = `./${name}`;
-  await fs.writeFile(`${baseUrl}/index.js`, filesContent.mainJs(name), () => null);
+  await fs.writeFile(`${baseUrl}/index.jsx`, filesContent.mainJs(name), () => null);
   await fs.writeFile(`${baseUrl}/style.js`, filesContent.mainStyles, () => null);
 };
 
 const createComponents = async (name) => {
   const baseUrl = `./${name}`;
   await execa.command(`mkdir ${baseUrl}/components`);
-  await fs.writeFile(`${baseUrl}/index.js`, filesContent.routeJS(name), () => null);
+  await fs.writeFile(`${baseUrl}/index.jsx`, filesContent.routeJS(name), () => null);
   await fs.writeFile(`${baseUrl}/routes.js`, filesContent.routeFile, () => null);
   await fs.writeFile(`${baseUrl}/style.js`, filesContent.mainStyles, () => null);
 };
